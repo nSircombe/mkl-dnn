@@ -57,3 +57,10 @@ steps:
   - apt-get update && apt-get install -y git build-essential cmake
   - .github/automation/build.sh --threading omp --mode Release --source-dir $(pwd) --build-dir $(pwd)/build
   - .github/automation/test.sh --test-kind gtest --build-dir $(pwd)/build --report-dir $(pwd)/report
+
+---
+trigger:
+  branch:
+    - master
+    - feature/*
+
