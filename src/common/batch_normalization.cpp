@@ -30,7 +30,7 @@ using namespace dnnl::impl::types;
 
 namespace {
 status_t bnrm_desc_init(batch_normalization_desc_t *bnrm_desc,
-        prop_kind_t prop_kind, const memory_desc_t *data_desc,
+prop_kind_t prop_kind, const memory_desc_t *data_desc,
         const memory_desc_t *diff_data_desc, float epsilon, unsigned flags) {
     bool args_ok = true && !any_null(bnrm_desc, data_desc)
             && one_of(prop_kind, forward_training, forward_inference,
