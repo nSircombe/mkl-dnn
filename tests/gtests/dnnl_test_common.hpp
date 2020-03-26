@@ -473,7 +473,7 @@ struct test_convolution_eltwise_params_t {
 
 template <typename F>
 bool catch_expected_failures(const F &f, bool expect_to_fail,
-        dnnl_status_t expected_status, bool ignore_unimplemented = false) {
+        dnnl_status_t expected_status, bool ignore_unimplemented = true) {
     try {
         f();
     } catch (const dnnl::error &e) {

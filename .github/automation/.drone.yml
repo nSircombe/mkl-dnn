@@ -1,0 +1,59 @@
+kind: pipeline
+name: clang-format
+
+platform:
+  arch: arm64
+
+steps:
+- name: ClangFormat_Check
+  image: ubuntu:18.04
+  commands:
+  - apt-get update && apt-get install -y sudo git
+  - .github/automation/env/clang.sh
+  - .github/automation/clang-format.sh
+
+---
+kind: pipeline
+name: Ubuntu16
+
+platform:
+  arch: arm64
+
+steps:
+- name: gcc-test
+  image: ubuntu:16.04
+  commands:
+  - apt-get update && apt-get install -y git build-essential cmake
+  - .github/automation/build.sh --threading omp --mode Release --source-dir $(pwd) --build-dir $(pwd)/build
+  - .github/automation/test.sh --test-kind gtest --build-dir $(pwd)/build --report-dir $(pwd)/report
+
+---
+kind: pipeline
+name: Ubuntu18-clang
+
+platform:
+  arch: arm64
+
+steps:
+- name: clang-test
+  image: ubuntu:18.04
+  commands:
+  - apt-get update && apt-get install -y sudo git build-essential cmake
+  - .github/automation/env/clang.sh
+  - .github/automation/build.sh --threading omp --mode Release --source-dir $(pwd) --build-dir $(pwd)/build
+  - .github/automation/test.sh --test-kind gtest --build-dir $(pwd)/build --report-dir $(pwd)/report
+
+---
+kind: pipeline
+name: Ubuntu18
+
+platform:
+  arch: arm64
+
+steps:
+- name: gcc-test
+  image: ubuntu:18.04
+  commands:
+  - apt-get update && apt-get install -y git build-essential cmake
+  - .github/automation/build.sh --threading omp --mode Release --source-dir $(pwd) --build-dir $(pwd)/build
+  - .github/automation/test.sh --test-kind gtest --build-dir $(pwd)/build --report-dir $(pwd)/report
