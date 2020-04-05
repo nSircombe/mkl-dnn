@@ -1,25 +1,30 @@
-Deep Neural Network Library (DNNL)
-==================================
+oneAPI Deep Neural Network Library (oneDNN)
+===========================================
 
-> **Note**
+> This software was previously known as 
+> **Intel Math Kernel Library for Deep Neural Networks (Intel MKL-DNN)**
+> and
+> **Deep Neural Network Library (DNNL)**.
+
+> With the launch of [oneAPI](https://www.oneapi.com/) we changed the project
+> name and repository location to be consistent with the rest of oneAPI
+> libraries:
+> * Short library name changed to **oneDNN**.
+> * Repository moved from `intel/mkl-dnn` to `oneapi-src/oneDNN`. Existing 
+> links to the code and documentation will continue to work.
 >
-> Starting with version 1.1 the library is renamed to DNNL. Please read
-> [Intel MKL-DNN to DNNL Transition Guide](https://intel.github.io/mkl-dnn/dev_guide_transition_to_dnnl.html).
+> There are no changes to API, environment variable or build options
+> planned at this point.
 
-> **Note**
->
-> Version 1.0 brings incompatible changes to the 0.20 version. Please read
-> [Version 1.0 Transition Guide](https://intel.github.io/mkl-dnn/dev_guide_transition_to_v1.html).
-
-Deep Neural Network Library (DNNL) is an
+oneAPI Deep Neural Network Library (oneDNN) is an
 open-source performance library for deep learning applications. The library
 includes basic building blocks for neural networks optimized
 for Intel Architecture Processors and Intel Processor Graphics.
 
-DNNL is intended for deep learning applications and framework
+oneDNN is intended for deep learning applications and framework
 developers interested in improving application performance
 on Intel CPUs and GPUs. Deep learning practitioners should use one of the
-applications enabled with DNNL:
+applications enabled with oneDNN:
 * [Apache\* MXNet](https://mxnet.apache.org)
 * [BigDL](https://github.com/intel-analytics/BigDL)
 * [Caffe\* Optimized for Intel Architecture](https://github.com/intel/caffe)
@@ -37,16 +42,16 @@ applications enabled with DNNL:
 
 # Documentation
 
-* [Developer guide](https://intel.github.io/mkl-dnn) explains programming
+* [Developer guide](https://oneapi-src.github.io/oneDNN) explains programming
 model, supported functionality, details of primitives implementations and
 includes annotated examples.
-* [API reference](https://intel.github.io/mkl-dnn/modules.html) provides
+* [API reference](https://oneapi-src.github.io/oneDNN/modules.html) provides
 comprehensive reference of the library API.
 
 # Installation
 
 Pre-built binaries for Linux\*, Windows\*, and macOS\* are available for download
-in the [releases section](https://github.com/intel/mkl-dnn/releases). Package
+in the [releases section](https://github.com/oneapi-src/oneDNN/releases). Package
 names use the following convention:
 
 | OS      | Package name
@@ -68,16 +73,16 @@ interoperability with CPU or GPU runtime libraries used by the application.
 The packages do not include library dependencies and these need to be resolved
 in the application at build time. See the
 [System Requirements](#system-requirements) section below and the
-[Build Options](http://intel.github.io/mkl-dnn/dev_guide_build_options.html)
-section in the [developer guide](http://intel.github.io/mkl-dnn) for more
+[Build Options](https://oneapi-src.github.io/oneDNN/dev_guide_build_options.html)
+section in the [developer guide](https://oneapi-src.github.io/oneDNN) for more
 details on CPU and GPU runtimes.
 
 If the configuration you need is not available, you can
-[build the library from source](http://intel.github.io/mkl-dnn/dev_guide_build.html).
+[build the library from source](https://oneapi-src.github.io/oneDNN/dev_guide_build.html).
 
 # System Requirements
 
-DNNL supports systems based on
+oneDNN supports systems based on
 [Intel 64 or AMD64 architecture](https://en.wikipedia.org/wiki/X86-64).
 
 The library is optimized for the following CPUs:
@@ -89,15 +94,15 @@ The library is optimized for the following CPUs:
 * Intel Xeon Scalable processor (formerly Skylake and Cascade Lake)
 * future Intel Xeon Scalable processor (code name Cooper Lake)
 
-DNNL detects instruction set architecture (ISA) in the runtime and uses
+oneDNN detects instruction set architecture (ISA) at runtime and uses
 just-in-time (JIT) code generation to deploy the code optimized
 for the latest supported ISA.
 
 > **WARNING**
 >
-> On macOS, applications that use DNNL may need to request special
+> On macOS, applications that use oneDNN may need to request special
 > entitlements if they use the hardened runtime. See the
-> [linking guide](https://intel.github.io/mkl-dnn/dev_guide_link.html)
+> [linking guide](https://oneapi-src.github.io/oneDNN/dev_guide_link.html)
 > for more details.
 
 The library is optimized for the following GPUs:
@@ -107,7 +112,7 @@ The library is optimized for the following GPUs:
 
 ## Requirements for Building from Source
 
-DNNL supports systems meeting the following requirements:
+oneDNN supports systems meeting the following requirements:
 * Operating system with Intel 64 architecture support
 * C++ compiler with C++11 standard support
 * [CMake](https://cmake.org/download/) 2.8.11 or later
@@ -120,7 +125,7 @@ dependencies.
 ### CPU Engine
 
 Intel Architecture Processors and compatible devices are supported by the
-DNNL CPU engine. The CPU engine is built by default and cannot
+oneDNN CPU engine. The CPU engine is built by default and cannot
 be disabled at build time. The engine can be configured to use the OpenMP or
 TBB threading runtime. The following additional requirements apply:
 * OpenMP runtime requires C++ compiler with OpenMP 2.0 or later standard support
@@ -133,7 +138,7 @@ the Intel C++ Compiler for the best performance results.
 
 ### GPU Engine
 
-Intel Processor Graphics is supported by the DNNL GPU engine. The GPU
+Intel Processor Graphics is supported by the oneDNN GPU engine. The GPU
 engine is disabled in the default build configuration. The following
 additional requirements apply when GPU engine is enabled:
 * OpenCL\* runtime library (OpenCL version 1.2 or later)
@@ -142,7 +147,7 @@ additional requirements apply when GPU engine is enabled:
 
 ### Runtime Dependencies
 
-When DNNL is built from source, the library runtime dependencies
+When oneDNN is built from source, the library runtime dependencies
 and specific versions are defined by the build environment.
 
 #### Linux
@@ -229,7 +234,7 @@ See README included into corresponding binary package.
 # Support
 
 Please submit your questions, feature requests, and bug reports on the
-[GitHub issues](https://github.com/intel/mkl-dnn/issues) page.
+[GitHub issues](https://github.com/oneapi-src/oneDNN/issues) page.
 
 You may reach out to project maintainers privately at dnnl.maintainers@intel.com.
 
@@ -237,11 +242,11 @@ You may reach out to project maintainers privately at dnnl.maintainers@intel.com
 >
 > The following functionality has preview status and might be changed without
 > prior notification in future releases:
-> * [Primitive cache](https://intel.github.io/mkl-dnn/dev_guide_primitive_cache.html)
+> * [Primitive cache](https://oneapi-src.github.io/oneDNN/dev_guide_primitive_cache.html)
 
 # Contributing
 
-We welcome community contributions to DNNL. If you have an idea on how
+We welcome community contributions to oneDNN. If you have an idea on how
 to improve the library:
 
 * For changes impacting the public API, submit
@@ -251,7 +256,7 @@ to improve the library:
  and [coding style](CONTRIBUTING.md#coding_style).
 * Ensure that you can build the product and run all the examples with your
   patch.
-* Submit a [pull request](https://github.com/intel/mkl-dnn/pulls).
+* Submit a [pull request](https://github.com/oneapi-src/oneDNN/pulls).
 
 For additional details, see [contribution guidelines](CONTRIBUTING.md).
 
@@ -261,7 +266,7 @@ contributors are expected to adhere to the
 
 # License
 
-DNNL is licensed under [Apache License Version 2.0](LICENSE). Refer to the
+oneDNN is licensed under [Apache License Version 2.0](LICENSE). Refer to the
 "[LICENSE](LICENSE)" file for the full license text and copyright notice.
 
 This distribution includes third party software governed by separate license

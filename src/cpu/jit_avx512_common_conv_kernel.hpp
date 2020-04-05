@@ -20,9 +20,9 @@
 #include "c_types_map.hpp"
 #include "memory_tracking.hpp"
 
+#include "eltwise/jit_uni_eltwise_injector.hpp"
 #include "jit_generator.hpp"
 #include "jit_primitive_conf.hpp"
-#include "jit_uni_eltwise_injector.hpp"
 
 namespace dnnl {
 namespace impl {
@@ -393,7 +393,7 @@ struct jit_avx512_common_conv_bwd_weights_kernel_f32 : public jit_generator {
     static status_t init_conf(jit_conv_conf_t &jcp,
             const convolution_desc_t &cd, memory_desc_t &src_md,
             memory_desc_t &diff_weights_md, memory_desc_t &diff_bias_md,
-            memory_desc_t &diff_dst_md);
+            memory_desc_t &diff_dst_md, int nthreads);
     static void init_scratchpad(memory_tracking::registrar_t &scratchpad,
             const jit_conv_conf_t &jcp);
 
@@ -460,7 +460,7 @@ private:
     void generate();
 
     static void balance(const jit_conv_conf_t &j, int &nthr, int &nthr_mb,
-            int &nthr_g, int &nthr_oc_b, int &nthr_ic_b);
+            int &nthr_g, int &nthr_oc_b, int &nthr_ic_b, int nthreads);
 };
 
 } // namespace cpu

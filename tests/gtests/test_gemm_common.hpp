@@ -18,6 +18,7 @@
 #define TEST_GEMM_COMMON_H
 
 #include "dnnl_test_common.hpp"
+#include "dnnl_thread.hpp"
 #include "gtest/gtest.h"
 
 #include "cpu_isa_traits.hpp"
@@ -1169,7 +1170,7 @@ struct run_test_gemm {
             auto status = dnnl_gemm<a_dt, b_dt, c_dt>::call(
                     p, zero_mem, zero_mem, zero_mem, zero_mem);
             if (status != dnnl_success)
-                throw error(status, "dnnl gemm returned error");
+                throw error(status, "oneDNN gemm returned error");
             return;
         }
 
@@ -1203,7 +1204,7 @@ struct run_test_gemm {
         }
 
         if (status != dnnl_success)
-            throw error(status, "dnnl gemm returned error");
+            throw error(status, "oneDNN gemm returned error");
     }
 };
 
@@ -1251,6 +1252,18 @@ protected:
                 [=]() { Test(); }, p.expect_to_fail, p.expected_status);
     }
     void Test() {
+#if DNNL_CPU_THREADING_RUNTIME == DNNL_RUNTIME_THREADPOOL
+        struct scoped_threadpool {
+            scoped_threadpool() {
+                impl::threadpool_utils::activate_threadpool(
+                        impl::threadpool_utils::get_active_threadpool());
+            }
+            ~scoped_threadpool() {
+                impl::threadpool_utils::deactivate_threadpool();
+            }
+        };
+        scoped_threadpool stp;
+#endif
         const auto &p = ::testing::TestWithParam<test_params>::GetParam();
         run_test_gemm<a_dt, b_dt, c_dt>::call(p);
     }

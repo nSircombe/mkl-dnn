@@ -20,9 +20,9 @@
 #include "c_types_map.hpp"
 #include "memory_tracking.hpp"
 
+#include "eltwise/jit_uni_eltwise_injector.hpp"
 #include "jit_generator.hpp"
 #include "jit_primitive_conf.hpp"
-#include "jit_uni_eltwise_injector.hpp"
 
 namespace dnnl {
 namespace impl {
@@ -93,7 +93,7 @@ private:
     void reduce_loop(int load_loop_blk, int ur, int substep, bool wraparound);
 
     void generate();
-    static void balance(jit_1x1_conv_conf_t &jcp, int nthreads);
+    static void balance(jit_1x1_conv_conf_t &jcp);
 };
 
 } // namespace cpu
