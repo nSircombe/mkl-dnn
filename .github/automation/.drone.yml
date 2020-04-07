@@ -16,21 +16,6 @@
 # *******************************************************************************
 
 kind: pipeline
-name: clang-format
-
-platform:
-  arch: arm64
-
-steps:
-- name: ClangFormat_Check
-  image: ubuntu:18.04
-  commands:
-  - apt-get update && apt-get install -y sudo git
-  - .github/automation/env/clang.sh
-  - .github/automation/clang-format.sh
-
----
-kind: pipeline
 name: Ubuntu16
 
 platform:
