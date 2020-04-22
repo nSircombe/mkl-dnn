@@ -95,7 +95,13 @@ elseif(UNIX OR MINGW)
     append(CMAKE_CCXX_NOEXCEPT_FLAGS "-fno-exceptions")
     # compiler specific settings
     if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        set(DEF_ARCH_OPT_FLAGS "-msse4.1")
+        if(TARGET_ARCH STREQUAL "AARCH64")
+             set(DEF_ARCH_OPT_FLAGS "-O3 -mcpu=native")
+             append_if(DNNL_WERROR CMAKE_CCXX_FLAGS "-Wno-error=attributes")
+        else()
+             set(DEF_ARCH_OPT_FLAGS "-msse4.1")
+        endif()
+ 
         # Clang cannot vectorize some loops with #pragma omp simd and gets
         # very upset. Tell it that it's okay and that we love it
         # unconditionally.
