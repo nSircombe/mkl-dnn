@@ -98,12 +98,12 @@ elseif(UNIX OR MINGW)
     append(CMAKE_CCXX_NOEXCEPT_FLAGS "-fno-exceptions")
     # compiler specific settings
     if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        if(TARGET_ARCH STREQUAL "AARCH64")
-             set(DEF_ARCH_OPT_FLAGS "-O3 -mcpu=native")
-             # Avoid error on overaligned type in jit_avx512_common_convolution_winograd.cpp
-             append_if(DNNL_WERROR CMAKE_CCXX_FLAGS "-Wno-error=attributes")
-             set(DNNL_ENABLE_JIT_PROFILING CACHE BOOL "OFF" FORCE)
-             message(WARNING "AArch64 build, DNNL_ENABLE_JIT_PROFILING is OFF")
+        if(DNNL_TARGET_ARCH STREQUAL "AARCH64")
+             set(DEF_ARCH_OPT_FLAGS "-O3")
+             # For native compilation tune for the host processor
+             if (CMAKE_SYSTEM_PROCESSOR STREQUAL CMAKE_HOST_SYSTEM_PROCESSOR)
+                 append(DEF_ARCH_OPT_FLAGS "-mcpu=native")
+             endif()
         else()
              set(DEF_ARCH_OPT_FLAGS "-msse4.1")
         endif()
