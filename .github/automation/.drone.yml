@@ -119,4 +119,3 @@ trigger:
     - master
     - feature/*
     - test/*
-
